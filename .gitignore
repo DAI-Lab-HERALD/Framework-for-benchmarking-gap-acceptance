@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+python_packages/
+
+# ignore raw data files
+*.pkl
+*.csv
+*.txt
+*.log
+*.ive
+*.osgb
+*.xodr
+*.url
+*.URL
+*.osm
+*.pdf
+
+# ignore pictures
+*.png
+*.jpg
+*.pcd.bin
+*.pcd
+
+
+# C extensions
+*.so
+
+# ignore result data right now
+Model_options/
+Results/
+simulations_1.py
+simulations_2.py
+simulations_3.py
+simulations_4.py
+simulations_5.py
+simulations_6.py
+simulations_7.py
+simulations_8.py
+simulations_9.py
+simulations_10.py
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+
+# pyenv
+.python-version
+
+
