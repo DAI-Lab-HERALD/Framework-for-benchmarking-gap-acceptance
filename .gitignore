@@ -14,6 +14,7 @@ python_packages/
 *.URL
 *.osm
 *.pdf
+*.npy
 
 # ignore pictures
 *.png
@@ -28,6 +29,9 @@ python_packages/
 # ignore result data right now
 Model_options/
 Results/
+Latex_files/
+ExiD/
+IntD/
 simulations_1.py
 simulations_2.py
 simulations_3.py
