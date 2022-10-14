@@ -15,6 +15,7 @@ python_packages/
 *.osm
 *.pdf
 *.npy
+*.zip
 
 # ignore pictures
 *.png
