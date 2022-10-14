@@ -42,8 +42,7 @@ simulations_7.py
 simulations_8.py
 simulations_9.py
 simulations_10.py
-analyze
-
+analyse_data
 # Jupyter Notebook
 .ipynb_checkpoints
 
