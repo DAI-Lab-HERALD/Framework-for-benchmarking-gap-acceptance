@@ -46,6 +46,9 @@ simulations_10.py
 analyse_data.py
 analyse_data_2.py
 Load_results.py
+CoR_processing_raw.py
+
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
