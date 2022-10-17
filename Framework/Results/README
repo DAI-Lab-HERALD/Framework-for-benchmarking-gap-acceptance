@@ -1,0 +1,7 @@
+This is the place to put in the results by extractign the zip file "Framework_results.zip".
+
+One then should see four folder at this location:
+- Data
+- Metrics
+- Models
+- Splitting

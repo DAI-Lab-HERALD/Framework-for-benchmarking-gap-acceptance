@@ -29,7 +29,6 @@ python_packages/
 
 # ignore result data right now
 Model_options/
-Results/
 Latex_files/
 ExiD/
 IntD/
