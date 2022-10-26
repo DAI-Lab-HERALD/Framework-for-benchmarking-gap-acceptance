@@ -9,25 +9,15 @@ class MSE_k5(evaluation_template):
     def evaluate_prediction_method(self):
         Error = 0
         for i_sample in range(len(self.Output_path_pred)):
-            count = 0
+            (num_poss, num_timesteps_out) = self.Output_path_pred.iloc[i_sample, 0].shape
+            diff = np.zeros((num_poss, num_timesteps_out))
             for j in range(len(self.Output_path.columns)):
-                num_poss = len(self.Output_path_pred.iloc[i_sample, j])
-                num_closests = int(np.ceil(num_poss / 20))
-                count += num_poss
-                if j == 0:
-                    error = np.sum((self.Output_path_pred.iloc[i_sample, j] -
-                                    self.Output_path.iloc[i_sample, j][np.newaxis,:]) ** 2, axis = -1)
-                else:
-                    error += np.sum((self.Output_path_pred.iloc[i_sample, j] -
-                                     self.Output_path.iloc[i_sample, j][np.newaxis,:]) ** 2, axis = -1)
-                    
-            error = np.sort(error)
-            
-            
-            
-            count = count/len(self.Output_path.columns)
-            
-            Error += np.sum(error[:num_closests])/count/len(self.Output_path.iloc[i_sample, 0])
+                diff += (self.Output_path_pred.iloc[i_sample, j] -
+                         self.Output_path.iloc[i_sample, j][np.newaxis,:]) ** 2
+            diff = np.sqrt(diff)
+            diff = np.mean(diff, -1)
+            index = np.argsort(diff)[:int(0.05 * num_poss)]
+            Error += np.mean(diff[index])
         return [Error / len(self.Output_path_pred)]
     
     

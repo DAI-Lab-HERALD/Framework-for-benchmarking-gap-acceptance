@@ -9,17 +9,14 @@ class MSE(evaluation_template):
     def evaluate_prediction_method(self):
         Error = 0
         for i_sample in range(len(self.Output_path_pred)):
-            error = 0
-            count = 0
+            (num_poss, num_timesteps_out) = self.Output_path_pred.iloc[i_sample, 0].shape
+            diff = np.zeros((num_poss, num_timesteps_out))
             for j in range(len(self.Output_path.columns)):
-                num_poss = len(self.Output_path_pred.iloc[i_sample, j])
-                count += num_poss
-                error += np.sum((self.Output_path_pred.iloc[i_sample, j] -
-                                 self.Output_path.iloc[i_sample, j][np.newaxis,:]) ** 2)
+                diff += (self.Output_path_pred.iloc[i_sample, j] -
+                         self.Output_path.iloc[i_sample, j][np.newaxis,:]) ** 2
+            diff = np.sqrt(diff)   
             
-            count = count/len(self.Output_path.columns)
-            
-            Error += error/count/len(self.Output_path.iloc[i_sample, 0])
+            Error += np.mean(diff)
         return [Error / len(self.Output_path_pred)]
     
     
