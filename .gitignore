@@ -13,7 +13,6 @@ python_packages/
 *.url
 *.URL
 *.osm
-*.pdf
 *.npy
 *.zip
 
