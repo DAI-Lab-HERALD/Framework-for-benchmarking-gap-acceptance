@@ -8,4 +8,4 @@ This are the file
 
 The raw data for the other two datasets implemented falls under stricter copyright. The datasets [HighD](https://www.highd-dataset.com/) and [RounD](https://www.round-dataset.com/) can be requested online. 
 
-More details details about about this implementation are attached to this repository as well (see [https://github.com/julianschumann/Framework-for-benchmarking-gap-acceptance/blob/main/Framework/Benchmark-Implementation.pdf](Suplementary materials))
+More details details about about this implementation are attached to this repository as well (see [Suplementary materials](https://github.com/julianschumann/Framework-for-benchmarking-gap-acceptance/blob/main/Framework/Benchmark-Implementation.pdf))
