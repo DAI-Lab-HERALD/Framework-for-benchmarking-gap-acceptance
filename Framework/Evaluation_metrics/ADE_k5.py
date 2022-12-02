@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from evaluation_template import evaluation_template 
 
-class MSE(evaluation_template):
+class ADE_k5(evaluation_template):
     def setup_method(self):
         pass
      
@@ -14,9 +14,10 @@ class MSE(evaluation_template):
             for j in range(len(self.Output_path.columns)):
                 diff += (self.Output_path_pred.iloc[i_sample, j] -
                          self.Output_path.iloc[i_sample, j][np.newaxis,:]) ** 2
-            diff = np.sqrt(diff)   
-            
-            Error += np.mean(diff)
+            diff = np.sqrt(diff)
+            diff = np.mean(diff, -1)
+            index = np.argsort(diff)[:int(0.05 * num_poss)]
+            Error += np.mean(diff[index])
         return [Error / len(self.Output_path_pred)]
     
     
@@ -27,7 +28,7 @@ class MSE(evaluation_template):
         return 'col'
     
     def get_name(self):
-        return 'MSE'
+        return 'ADE_k5'
     
     def requires_preprocessing(self):
         return False

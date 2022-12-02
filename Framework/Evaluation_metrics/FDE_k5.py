@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from evaluation_template import evaluation_template 
 
-class MSE_k5(evaluation_template):
+class FDE_k5(evaluation_template):
     def setup_method(self):
         pass
      
@@ -12,8 +12,8 @@ class MSE_k5(evaluation_template):
             (num_poss, num_timesteps_out) = self.Output_path_pred.iloc[i_sample, 0].shape
             diff = np.zeros((num_poss, num_timesteps_out))
             for j in range(len(self.Output_path.columns)):
-                diff += (self.Output_path_pred.iloc[i_sample, j] -
-                         self.Output_path.iloc[i_sample, j][np.newaxis,:]) ** 2
+                diff += (self.Output_path_pred.iloc[i_sample, j][:,-1] -
+                         self.Output_path.iloc[i_sample, j][np.newaxis,-1]) ** 2
             diff = np.sqrt(diff)
             diff = np.mean(diff, -1)
             index = np.argsort(diff)[:int(0.05 * num_poss)]
@@ -28,7 +28,7 @@ class MSE_k5(evaluation_template):
         return 'col'
     
     def get_name(self):
-        return 'MSE_k5'
+        return 'FDE_k5'
     
     def requires_preprocessing(self):
         return False
