@@ -799,8 +799,8 @@ class data_set_template():
             if os.path.isfile(test_file_inner_accepted):
                 [Output_path_apred_accepted, _] = np.load(test_file_inner_accepted, allow_pickle = True)
             else:
-                if self.train_path_accepted == False:
-                    self.trained_path_accepted()
+                if self.trained_path_accepted == False:
+                    self.train_path_accepted()
                 
                 # accepted
                 [Output_path_apred_accepted] = self.path_model_accepted.predict(Input_path_test = self.Input_path, 
