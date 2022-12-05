@@ -89,10 +89,6 @@ class data_set_template():
 
         self.num_samples_path_pred = max(1, num_samples_path_pred)
         
-        self.trained_path_accepted = False
-        
-        self.trained_path_rejected = False
-        
                 
     def reset(self):
         self.data_loaded = False
@@ -675,7 +671,6 @@ class data_set_template():
                                                             num_samples_path_pred = self.num_samples_path_pred)
         self.path_model_accepted.train()
         
-        self.trained_path_accepted = True
     
     def train_path_rejected(self):
         if not self.data_loaded:
@@ -696,7 +691,6 @@ class data_set_template():
         
         self.path_model_rejected.train()
         
-        self.trained_path_rejected = True
         
     def binary_to_time(self, Output_A_pred, Domain, model_save_file, splitter_save_file):
         test_file_outer = (model_save_file[:-4] + 
@@ -714,8 +708,7 @@ class data_set_template():
             if os.path.isfile(test_file_inner_accepted):
                 [Output_path_apred_accepted, _] = np.load(test_file_inner_accepted, allow_pickle = True)
             else:
-                if self.trained_path_accepted == False:
-                    self.train_path_accepted()
+                self.train_path_accepted()
                 
                 [Output_path_apred_accepted] = self.path_model_accepted.predict(Input_path_test = self.Input_path, 
                                                                                 Input_T_test = self.Input_T,
@@ -799,8 +792,7 @@ class data_set_template():
             if os.path.isfile(test_file_inner_accepted):
                 [Output_path_apred_accepted, _] = np.load(test_file_inner_accepted, allow_pickle = True)
             else:
-                if self.trained_path_accepted == False:
-                    self.train_path_accepted()
+                self.train_path_accepted()
                 
                 # accepted
                 [Output_path_apred_accepted] = self.path_model_accepted.predict(Input_path_test = self.Input_path, 
@@ -824,8 +816,7 @@ class data_set_template():
             if os.path.isfile(test_file_inner_rejected):
                 [Output_path_apred_rejected, _] = np.load(test_file_inner_rejected, allow_pickle = True)
             else:
-                if self.trained_path_rejected == False:
-                    self.train_path_rejected()
+                self.train_path_rejected()
                 
                 # predict paths assuming a rejected gap
                 [Output_path_apred_rejected] = self.path_model_rejected.predict(Input_path_test = self.Input_path, 
