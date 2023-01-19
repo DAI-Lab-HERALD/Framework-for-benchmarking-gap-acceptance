@@ -34,8 +34,7 @@ if not model_path in sys.path:
     
 ##### Select modules
 Data_sets = ['HighD_lane_change', 'HighD_lane_change_intent', 'RounD_round_about', 'CoR_left_turns']
-Metrics = ['Accuracy', 'Accuracy_col', 'ROC_curve', 'ROC_curve_col', 'ADE', 'ADE_k5', 'FDE', 'FDE_k5']
-Metrics = ['ADE', 'ADE_k5', 'FDE', 'FDE_k5']
+Metrics = ['Accuracy', 'Accuracy_col', 'ROC_curve', 'ROC_curve_col', 'ADE', 'ADE_k5', 'FDE', 'FDE_k5', 'Miss_rate', 'Miss_rate_col']
 Data_params = [{'dt': 0.2, 'num_timesteps_in': 2}, {'dt': 0.2, 'num_timesteps_in': 10}] 
 Splitters = ['Random_split', 'Critical_split']
 Models = ['trajectron_salzmann', 'agent_yuan', 'logit_theofilatos', 'rt_mafi', 'db_xie', 'meta_khelfa']
