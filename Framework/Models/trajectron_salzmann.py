@@ -11,6 +11,8 @@ import random
 from model.trajectron import Trajectron
 from model.model_registrar import ModelRegistrar
 from environment.node_type import NodeTypeEnum
+from environment.environment import Environment
+from attrdict import AttrDict
 
 class trajectron_salzmann(model_template):
     
@@ -147,22 +149,25 @@ class trajectron_salzmann(model_template):
                        'augment': True,
                        'override_attention_radius': []}
     
-
-        train_data_path = 'Models/Trajectron/experiments/processed/eth_train.pkl'
-        with open(train_data_path, 'rb') as f:
-            train_env = dill.load(f, encoding='latin1')
-    
-
+        # Set time step
+        self.dt = self.Input_T_train[0][-1] - self.Input_T_train[0][-2]
+        
         # Offline Calculate Scene Graph
         model_registrar = ModelRegistrar(None, device)
         self.trajectron = Trajectron(model_registrar,
                                      hyperparams,
                                      None,
                                      device)
-        train_env.NodeType = NodeTypeEnum(['PEDESTRIAN', 'VEHICLE'])
-        self.dt = self.Input_T_train[0][-1] - self.Input_T_train[0][-2]
-        train_env.scenes[0].dt = self.dt
         
+        # Set train environment
+        scenes = [AttrDict({'dt': self.dt})]
+        train_env = Environment(node_type_list = ['PEDESTRIAN', 'VEHICLE'],
+                                    standardization = None,
+                                    scenes = scenes,
+                                    attention_radius=None, 
+                                    robot_type=None)
+        
+        # Prepare models
         self.trajectron.set_environment(train_env)
         self.trajectron.set_annealing_params()
         
