@@ -392,7 +392,7 @@ if save_to_figure:
     x_offset = 0.5 + 0.5 * (legend_width - legend_entries_per_row * legend_entry_width)
     
     Figure_string += r'    \filldraw[draw=black,fill = black!25!white, fill opacity = 0.2]'
-    Figure_string += '(0.5, 0.0) rectangle ({:0.3f}, {:0.3f});'.format(allowed_width, - legend_height) + ' \n'
+    Figure_string += '(0.5, 0.0) rectangle ({:0.3f}, {:0.3f});'.format(allowed_width, - legend_rows * legend_height) + ' \n'
     
     for i, data_params in enumerate(Data_params):
         dx = 0.15 * legend_height
