@@ -190,7 +190,7 @@ if save_to_figure:
     # Get maximum figure width in cm
     num_para_values = len(Models) * len(Data_sets) * len(Data_params)
     if 60 < num_para_values:
-        allowed_width = 23 # use textheight
+        allowed_width = 22 # use textheight
     elif 30 < num_para_values <= 60:
         allowed_width = 18.13275 # use textwidth
     else:
@@ -217,7 +217,7 @@ if save_to_figure:
     
     Figure_string += r'\begin{document}' + ' \n'
     
-    if allowed_width == 23:
+    if 60 < num_para_values:
         Figure_string += r'\begin{tikzpicture}[rotate = -90,transform shape]' + ' \n'
     else:
         Figure_string += r'\begin{tikzpicture}' + ' \n'
@@ -245,7 +245,7 @@ if save_to_figure:
         for i in range(len(Data_sets)):
             label_value = outer_space + (i + 0.5) * plot_width + i * inter_plot_space
             
-            if allowed_width == 23:
+            if 60 < num_para_values:
                 Figure_string += (r'    \node[black, rotate = 180, above, align = center, font = \footnotesize] at ' + 
                                   '({:0.3f}, 0.5) '.format(label_value) + 
                                   r'{' + Data_set_names[Data_sets[i]] + r'};' + ' \n') 
@@ -380,8 +380,12 @@ if save_to_figure:
     # Add the legend for n_I
     Figure_string += ' \n' + r'    % Draw the legend' + ' \n'
     
+    if 60 < num_para_values:
+        legend_width = overall_height - 0.5
+    else:
+        legend_width = allowed_width - 0.5
+        
     legend_height = 0.8
-    legend_width = allowed_width - 0.5
     legend_entry_width = 4
     legend_entries = len(Data_params) * 2
     legend_entries_per_row = int(np.floor(legend_width / legend_entry_width))
@@ -392,8 +396,15 @@ if save_to_figure:
     x_offset = 0.5 + 0.5 * (legend_width - legend_entries_per_row * legend_entry_width)
     
     Figure_string += r'    \filldraw[draw=black,fill = black!25!white, fill opacity = 0.2]'
-    Figure_string += '(0.5, 0.0) rectangle ({:0.3f}, {:0.3f});'.format(allowed_width, 
-                                                                       - (0.25 + 0.75 * legend_rows) * legend_height) + ' \n'
+    if 60 < num_para_values:
+        Figure_string += '({:0.3f}, 0.5) rectangle ({:0.3f}, {:0.3f});'.format(allowed_width + inter_plot_space, 
+                                                                               allowed_width + inter_plot_space + 
+                                                                               (0.25 + 0.75 * legend_rows) * legend_height,
+                                                                               overall_height) + ' \n'
+    else:
+        Figure_string += '(0.5, 0.0) rectangle ({:0.3f}, {:0.3f});'.format(allowed_width, 
+                                                                           - (0.25 + 0.75 * legend_rows) * legend_height) + ' \n'
+    
     
     for i, data_params in enumerate(Data_params):
         dx = 0.15 * legend_height
@@ -410,17 +421,33 @@ if save_to_figure:
         else:
             raise AttributeError("Implement a solution, lazy piece of shit")
         
-        # Random split
-        Figure_string += write_data_point_into_plot(x0_r + 0.5 * legend_height, dx, [y0_r], None, Colors[i])
-        Figure_string += (r'        \node[black, inner sep = 0, right, font = \footnotesize] at ' + 
-                          '({:0.3f}, {:0.3f}) '.format(x0_r + legend_height, y0_r) + 
-                          r'{$n_I =' + str(data_params['num_timesteps_in']) + r'$, Random split};' + ' \n')
         
-        # Critical split
-        Figure_string += write_data_point_into_plot(x0_c + 0.5 * legend_height, dx, None, [y0_c], Colors[i])
-        Figure_string += (r'        \node[black, inner sep = 0, right, font = \footnotesize] at ' + 
-                          '({:0.3f}, {:0.3f}) '.format(x0_c + legend_height, y0_c) + 
-                          r'{$n_I =' + str(data_params['num_timesteps_in']) + r'$, Critical split};' + ' \n')
+        if 60 < num_para_values:
+            # Random split
+            Figure_string += write_data_point_into_plot(allowed_width + inter_plot_space - y0_r, dx, 
+                                                        [x0_r + 0.5 * legend_height], None, Colors[i])
+            Figure_string += (r'        \node[black, rotate = 90, inner sep = 0, right, font = \footnotesize] at ' + 
+                              '({:0.3f}, {:0.3f}) '.format(allowed_width + inter_plot_space - y0_r, x0_r + legend_height) + 
+                              r'{$n_I =' + str(data_params['num_timesteps_in'][0]) + r'$, Random split};' + ' \n')
+            
+            # Critical split
+            Figure_string += write_data_point_into_plot(allowed_width + inter_plot_space - y0_c, dx,
+                                                        None, [x0_c + 0.5 * legend_height], Colors[i])
+            Figure_string += (r'        \node[black, rotate = 90, inner sep = 0, right, font = \footnotesize] at ' + 
+                              '({:0.3f}, {:0.3f}) '.format(allowed_width + inter_plot_space - y0_c, x0_c + legend_height) + 
+                              r'{$n_I =' + str(data_params['num_timesteps_in'][0]) + r'$, Critical split};' + ' \n')
+        else:
+            # Random split
+            Figure_string += write_data_point_into_plot(x0_r + 0.5 * legend_height, dx, [y0_r], None, Colors[i])
+            Figure_string += (r'        \node[black, inner sep = 0, right, font = \footnotesize] at ' + 
+                              '({:0.3f}, {:0.3f}) '.format(x0_r + legend_height, y0_r) + 
+                              r'{$n_I =' + str(data_params['num_timesteps_in'][0]) + r'$, Random split};' + ' \n')
+            
+            # Critical split
+            Figure_string += write_data_point_into_plot(x0_c + 0.5 * legend_height, dx, None, [y0_c], Colors[i])
+            Figure_string += (r'        \node[black, rotate = 90, inner sep = 0, right, font = \footnotesize] at ' + 
+                              '({:0.3f}, {:0.3f}) '.format(x0_c + legend_height, y0_c) + 
+                              r'{$n_I =' + str(data_params['num_timesteps_in'][0]) + r'$, Critical split};' + ' \n')
     
     Figure_string += r'\end{tikzpicture}' + ' \n'
     Figure_string += r'\end{document}'
