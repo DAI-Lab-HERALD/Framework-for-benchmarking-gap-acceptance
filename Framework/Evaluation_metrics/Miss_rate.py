@@ -31,6 +31,12 @@ class Miss_rate(evaluation_template):
     def get_t0_type():
         return 'start'
     
+    def get_opt_goal():
+        return 'minimize'
+        
+    def main_result_idx():
+        return 0
+    
     def get_name(self):
         return 'MR'
     

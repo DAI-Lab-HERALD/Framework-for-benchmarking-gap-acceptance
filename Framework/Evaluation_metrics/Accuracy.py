@@ -24,6 +24,12 @@ class Accuracy(evaluation_template):
     def get_t0_type():
         return 'start'
     
+    def get_opt_goal():
+        return 'maximize'
+        
+    def main_result_idx():
+        return 0
+    
     def get_name(self):
         return 'accuracy'
     

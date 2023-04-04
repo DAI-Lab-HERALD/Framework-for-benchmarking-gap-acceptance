@@ -27,6 +27,12 @@ class ADE_k5(evaluation_template):
     def get_t0_type():
         return 'col'
     
+    def get_opt_goal():
+        return 'minimize'
+        
+    def main_result_idx():
+        return 0
+    
     def get_name(self):
         return 'ADE_k5'
     

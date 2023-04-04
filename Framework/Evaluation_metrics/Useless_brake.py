@@ -18,6 +18,12 @@ class Useless_brake(evaluation_template):
     def get_t0_type():
         return 'crit'
     
+    def get_opt_goal():
+        return 'maximize'
+        
+    def main_result_idx():
+        return 0
+    
     def get_name(self):
         return 'brake'
     
