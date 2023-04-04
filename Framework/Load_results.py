@@ -445,7 +445,7 @@ if save_to_figure:
             
             # Critical split
             Figure_string += write_data_point_into_plot(x0_c + 0.5 * legend_height, dx, None, [y0_c], Colors[i])
-            Figure_string += (r'        \node[black, rotate = 90, inner sep = 0, right, font = \footnotesize] at ' + 
+            Figure_string += (r'        \node[black, inner sep = 0, right, font = \footnotesize] at ' + 
                               '({:0.3f}, {:0.3f}) '.format(x0_c + legend_height, y0_c) + 
                               r'{$n_I =' + str(data_params['num_timesteps_in'][0]) + r'$, Critical split};' + ' \n')
     
