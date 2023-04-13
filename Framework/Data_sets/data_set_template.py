@@ -8,10 +8,8 @@ class data_set_template():
             raise AttributeError("The raw data has not been loaded yet")
         
         # Find path where preprocessed path can be found
-        if os.name == 'nt':
-            self.path = '/'.join(os.path.dirname(__file__).split('\\')[:-1])
-        else:
-            self.path = '/'.join(os.path.dirname(__file__).split('/')[:-1])
+        self.path = '/'.join(os.path.dirname(__file__).split(os.sep)[:-1])
+            
         test_file = self.path + '/Results/Data/' + self.get_name() + '-processed_paths.npy'
         if os.path.isfile(test_file):
             [self.Path, 
