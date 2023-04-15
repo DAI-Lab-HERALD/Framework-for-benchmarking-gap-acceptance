@@ -1,3 +1,4 @@
+attrdict==2.0.1
 ddm==0.0.1
 dill==0.3.3
 easydict==1.9
