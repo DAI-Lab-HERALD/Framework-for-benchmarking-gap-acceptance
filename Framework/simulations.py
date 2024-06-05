@@ -32,6 +32,8 @@ model_path = os.path.join(path, 'Models', '')
 if not model_path in sys.path:
     sys.path.insert(0, model_path)
     
+#%% 
+    
 ##### Select modules
 Data_sets = ['HighD_lane_change', 'HighD_lane_change_intent', 'RounD_round_about', 'CoR_left_turns']
 Metrics = ['Accuracy', 'Accuracy_col', 'ROC_curve', 'ROC_curve_col', 'ADE', 'ADE_k5', 'FDE', 'FDE_k5', 'Miss_rate', 'Miss_rate_col']
